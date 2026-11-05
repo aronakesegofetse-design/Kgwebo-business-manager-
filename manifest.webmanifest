@@ -1,0 +1,10 @@
+{
+  "name": "Kgwebo Business Manager",
+  "short_name": "Kgwebo",
+  "description": "Manage small business sales, inventory, expenses and customers.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f7f6",
+  "theme_color": "#123b32",
+  "icons": []
+}

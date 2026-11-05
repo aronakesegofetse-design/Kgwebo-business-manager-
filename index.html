@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#123b32">
+<meta name="description" content="Kgwebo Business Manager helps small businesses track sales, stock, expenses and customers.">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Kgwebo Business Manager</title>
+<style>
+:root{--green:#123b32;--green2:#1d5b4b;--mint:#e7f3ee;--bg:#f5f7f6;--card:#fff;--text:#17231f;--muted:#6b7a73;--line:#e4ebe7;--red:#b94242;--amber:#9a6818;--shadow:0 8px 24px rgba(16,49,39,.07)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding-bottom:84px}
+button,input,select{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:auto;min-height:100vh}
+header{background:linear-gradient(135deg,#123b32,#24634f);color:#fff;padding:20px 18px 22px;border-radius:0 0 24px 24px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}.brand{font-size:20px;font-weight:850;letter-spacing:.2px}.subbrand{font-size:11px;opacity:.75;letter-spacing:1.5px;margin-top:3px}.pill{border:1px solid #ffffff55;border-radius:30px;padding:7px 10px;font-size:11px;color:#fff;background:#ffffff12}
+.welcome{margin-top:25px;font-size:13px;color:#d3e5dd}.business-title{font-size:24px;font-weight:800;margin-top:4px}
+main{padding:17px 15px 20px}.page-head{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 14px}.page-head h2{font-size:20px;margin:0}.muted{color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.metric .label{font-size:11px;color:var(--muted)}.metric .value{font-size:21px;font-weight:800;margin-top:7px;letter-spacing:-.5px}.metric .hint{font-size:10px;color:var(--muted);margin-top:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:15px;margin-top:13px;box-shadow:var(--shadow)}.card h3{font-size:14px;margin:0 0 12px}.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.quick button{border:0;background:var(--mint);border-radius:13px;padding:12px 5px;color:var(--green);font-size:11px;font-weight:700}.quick b{display:block;font-size:20px;margin-bottom:5px}
+.list{display:flex;flex-direction:column;gap:0}.item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0}.item-title{font-size:13px;font-weight:700}.item-sub{font-size:11px;color:var(--muted);margin-top:3px}.amount{font-size:13px;font-weight:800;white-space:nowrap}.positive{color:#16805a}.negative{color:var(--red)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:5;padding:7px 5px calc(7px + env(safe-area-inset-bottom));}
+.navinner{width:100%;max-width:760px;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}.navbtn{border:0;background:transparent;color:#748179;font-size:10px;padding:5px 2px;border-radius:10px}.navbtn span{display:block;font-size:19px;margin-bottom:3px}.navbtn.active{background:var(--mint);color:var(--green);font-weight:800}
+.primary{border:0;background:var(--green);color:#fff;border-radius:12px;padding:11px 14px;font-size:12px;font-weight:750}.secondary{border:1px solid var(--line);background:#fff;color:var(--green);border-radius:12px;padding:10px 12px;font-size:12px;font-weight:700}.danger{color:var(--red);border-color:#f0d6d6}.full{width:100%}
+.form{display:grid;gap:10px}.field label{display:block;font-size:11px;font-weight:750;color:#53645b;margin-bottom:5px}.field input,.field select{width:100%;border:1px solid #dce6e0;border-radius:11px;padding:12px;background:#fff;color:var(--text);outline:none}.field input:focus,.field select:focus{border-color:var(--green2);box-shadow:0 0 0 3px #1d5b4b16}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.empty{text-align:center;padding:25px 12px;color:var(--muted);font-size:12px}.empty b{display:block;color:var(--text);font-size:14px;margin-bottom:5px}
+.tag{font-size:10px;padding:4px 7px;border-radius:20px;background:var(--mint);color:var(--green);font-weight:750}.tag.warn{background:#fff2d9;color:var(--amber)}.tag.bad{background:#fdeaea;color:var(--red)}
+.search{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px;margin-bottom:9px;background:#fff}
+.bar{height:8px;background:#eaf0ec;border-radius:10px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:#2b8064;border-radius:10px}
+.overlay{position:fixed;inset:0;background:#0d211bcc;display:none;align-items:flex-end;justify-content:center;z-index:10;padding:12px}.overlay.show{display:flex}.sheet{width:100%;max-width:600px;background:#fff;border-radius:22px;padding:18px;max-height:88vh;overflow:auto}.sheethead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.sheethead h3{margin:0;font-size:17px}.close{border:0;background:#edf2ef;border-radius:50%;width:32px;height:32px;font-size:18px}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#173d32;color:white;padding:10px 15px;border-radius:30px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:20}.toast.show{opacity:1}
+@media(min-width:600px){main{padding:22px}.metric .value{font-size:25px}.quick button{padding:15px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="top"><div><div class="brand">KGWEBO</div><div class="subbrand">BUSINESS MANAGER</div></div><div class="pill" id="planPill">FREE PLAN</div></div>
+ <div class="welcome">WELCOME BACK</div><div class="business-title" id="businessName">My Business</div>
+</header>
+<main id="view"></main>
+<nav><div class="navinner">
+ <button class="navbtn active" data-page="home"><span>⌂</span>Home</button>
+ <button class="navbtn" data-page="sales"><span>↗</span>Sales</button>
+ <button class="navbtn" data-page="stock"><span>▦</span>Stock</button>
+ <button class="navbtn" data-page="expenses"><span>−</span>Expenses</button>
+ <button class="navbtn" data-page="more"><span>•••</span>More</button>
+</div></nav>
+</div>
+<div class="overlay" id="overlay"><div class="sheet"><div class="sheethead"><h3 id="modalTitle">Add record</h3><button class="close" id="closeModal">×</button></div><div id="modalBody"></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='kgwebo_v1_data';
+const today=()=>new Date().toISOString().slice(0,10);
+const money=n=>'P '+Number(n||0).toLocaleString('en-BW',{minimumFractionDigits:2,maximumFractionDigits:2});
+let db=load();
+function fresh(){return {business:'My Business',currency:'P',sales:[],expenses:[],products:[],customers:[],premium:false}}
+function load(){try{return {...fresh(),...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return fresh()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(db));}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function sum(a){return a.reduce((n,x)=>n+Number(x.amount||0),0)}
+function toast(t){let e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2100)}
+function setPage(p){page=p;document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===p));render()}
+let page='home';
+function header(){document.getElementById('businessName').textContent=db.business||'My Business';document.getElementById('planPill').textContent=db.premium?'PREMIUM PLAN':'FREE PLAN'}
+function metric(label,value,hint=''){return `<div class="metric"><div class="label">${label}</div><div class="value">${value}</div><div class="hint">${hint}</div></div>`}
+function empty(title,sub){return `<div class="empty"><b>${title}</b>${sub}</div>`}
+function row(title,sub,amount,cls=''){return `<div class="item"><div><div class="item-title">${esc(title)}</div><div class="item-sub">${esc(sub)}</div></div><div class="amount ${cls}">${amount}</div></div>`}
+function render(){
+ header();const v=document.getElementById('view');
+ if(page==='home'){
+  const revenue=sum(db.sales),cost=sum(db.expenses),net=revenue-cost;
+  const recent=[...db.sales.map(x=>({...x,type:'Sale'})),...db.expenses.map(x=>({...x,type:'Expense'}))].sort((a,b)=>(b.created||'').localeCompare(a.created||'')).slice(0,5);
+  v.innerHTML=`<div class="page-head"><div><h2>Business overview</h2><div class="muted">${new Date().toLocaleDateString('en-BW',{weekday:'long',day:'numeric',month:'short',year:'numeric'})}</div></div><button class="secondary" onclick="openSettings()">⚙ Settings</button></div>
+  <div class="grid">${metric('TOTAL SALES',money(revenue),'All recorded sales')}${metric('EXPENSES',money(cost),'All recorded expenses')}${metric('NET RESULT',money(net),'Sales minus expenses')}${metric('PRODUCTS',db.products.length,'Items in your stock list')}</div>
+  <div class="card"><h3>Quick actions</h3><div class="quick"><button onclick="openSale()"><b>＋</b>Sale</button><button onclick="openProduct()"><b>▦</b>Product</button><button onclick="openExpense()"><b>−</b>Expense</button><button onclick="openCustomer()"><b>♙</b>Customer</button></div></div>
+  <div class="card"><h3>Recent activity</h3><div class="list">${recent.length?recent.map(x=>row(x.title||x.name||x.type,`${x.type} • ${x.date||''}`,`${x.type==='Sale'?'+':'−'}${money(x.amount)}`,x.type==='Sale'?'positive':'negative')).join(''):empty('Nothing recorded yet','Add your first sale or expense to get started.')}</div></div>
+  <div class="card"><h3>Getting started</h3><div class="muted">1. Add products to your stock list.<br>2. Record sales as they happen.<br>3. Add expenses to understand your costs.<br>4. Review your business performance in Reports.</div></div>`;
+ }else if(page==='sales'){
+  v.innerHTML=`<div class="page-head"><div><h2>Sales</h2><div class="muted">Record and review money coming in</div></div><button class="primary" onclick="openSale()">＋ Add sale</button></div><div class="grid">${metric('TOTAL SALES',money(sum(db.sales)),db.sales.length+' transactions')}</div><div class="card"><h3>Sales history</h3><div class="list">${db.sales.length?[...db.sales].sort((a,b)=>b.created.localeCompare(a.created)).map(x=>row(x.title,`${x.date} • ${x.qty||1} unit(s)`,money(x.amount),'positive')).join(''):empty('No sales yet','Your recorded sales will appear here.')}</div></div>`;
+ }else if(page==='stock'){
+  v.innerHTML=`<div class="page-head"><div><h2>Inventory</h2><div class="muted">Keep track of products and quantities</div></div><button class="primary" onclick="openProduct()">＋ Add item</button></div><input class="search" id="stockSearch" placeholder="Search products…" oninput="filterStock(this.value)"><div class="card"><h3>Stock list (${db.products.length})</h3><div class="list" id="stockList">${stockRows(db.products)}</div></div>`;
+ }else if(page==='expenses'){
+  v.innerHTML=`<div class="page-head"><div><h2>Expenses</h2><div class="muted">Track business spending</div></div><button class="primary" onclick="openExpense()">＋ Add expense</button></div><div class="grid">${metric('TOTAL EXPENSES',money(sum(db.expenses)),db.expenses.length+' records')}</div><div class="card"><h3>Expense history</h3><div class="list">${db.expenses.length?[...db.expenses].sort((a,b)=>b.created.localeCompare(a.created)).map(x=>row(x.title,`${x.date} • ${x.category||'General'}`,money(x.amount),'negative')).join(''):empty('No expenses yet','Add costs such as transport, rent or supplies.')}</div></div>`;
+ }else{
+  v.innerHTML=`<div class="page-head"><div><h2>More tools</h2><div class="muted">Customers, reports and app settings</div></div></div>
+  <div class="card"><h3>Customers & credit</h3><button class="secondary full" onclick="showCustomers()">Manage customers and balances →</button></div>
+  <div class="card"><h3>Business reports</h3><div class="muted">View totals based on your recorded sales and expenses.</div><div class="actions"><button class="primary" onclick="showReports()">Open reports</button><button class="secondary" onclick="exportCSV()">Export CSV</button></div></div>
+  <div class="card"><h3>Premium</h3><div class="muted">Premium features are planned: advanced reports, data backup and multiple staff accounts. Payments are not enabled in this first build.</div><div class="actions"><button class="secondary" onclick="premiumInfo()">Explore Premium</button></div></div>
+  <div class="card"><h3>Settings</h3><button class="secondary full" onclick="openSettings()">Business name & preferences →</button></div>
+  <div class="card"><h3>Your data</h3><div class="muted">Your records are stored on this device in this first offline version. Export a backup regularly.</div><div class="actions"><button class="secondary" onclick="exportJSON()">Download data backup</button><button class="secondary danger" onclick="clearData()">Clear all data</button></div></div>`;
+ }
+}
+function stockRows(items){return items.length?items.map(p=>`<div class="item"><div><div class="item-title">${esc(p.name)}</div><div class="item-sub">${esc(p.category||'General')} • ${money(p.price)} selling price</div></div><div style="text-align:right"><div class="amount">${p.qty} in stock</div><div class="item-sub">${p.qty<=p.low?'<span class="tag warn">Low stock</span>':'<span class="tag">In stock</span>'}</div><button class="secondary" style="padding:5px 8px;margin-top:5px" onclick="adjustStock('${p.id}')">Adjust</button></div></div>`).join(''):empty('No products added','Add your products to start managing stock.')}
+function filterStock(q){let a=db.products.filter(p=>p.name.toLowerCase().includes(q.toLowerCase()));document.getElementById('stockList').innerHTML=stockRows(a)}
+function modal(title,body){document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=body;document.getElementById('overlay').classList.add('show')}
+function closeModal(){document.getElementById('overlay').classList.remove('show')}
+document.getElementById('closeModal').onclick=closeModal;document.getElementById('overlay').addEventListener('click',e=>{if(e.target.id==='overlay')closeModal()});
+function openSale(){
+ let opts=db.products.map(p=>`<option value="${p.id}">${esc(p.name)} (${p.qty} available)</option>`).join('');
+ modal('Record a sale',`<form class="form" onsubmit="saveSale(event)"><div class="field"><label>Sale description</label><input name="title" required placeholder="e.g. Grocery sale"></div><div class="field"><label>Amount (P)</label><input name="amount" type="number" min=".01" step=".01" required placeholder="0.00"></div><div class="field"><label>Quantity sold (optional)</label><input name="qty" type="number" min="1" step="1" value="1"></div>${opts?`<div class="field"><label>Deduct from stock (optional)</label><select name="product"><option value="">Do not link a product</option>${opts}</select></div>`:''}<div class="field"><label>Date</label><input name="date" type="date" value="${today()}" required></div><button class="primary full">Save sale</button></form>`);
+}
+function saveSale(e){e.preventDefault();let f=new FormData(e.target),p=db.products.find(x=>x.id===f.get('product')),qty=Number(f.get('qty')||1);if(p&&p.qty<qty){toast('Not enough stock available');return}if(p)p.qty-=qty;db.sales.push({id:crypto.randomUUID(),title:f.get('title'),amount:Number(f.get('amount')),qty,date:f.get('date'),created:new Date().toISOString()});save();closeModal();render();toast('Sale saved')}
+function openExpense(){modal('Add expense',`<form class="form" onsubmit="saveExpense(event)"><div class="field"><label>Expense description</label><input name="title" required placeholder="e.g. Transport"></div><div class="field"><label>Amount (P)</label><input name="amount" type="number" min=".01" step=".01" required placeholder="0.00"></div><div class="field"><label>Category</label><select name="category"><option>General</option><option>Transport</option><option>Rent</option><option>Stock / Supplies</option><option>Utilities</option><option>Wages</option><option>Other</option></select></div><div class="field"><label>Date</label><input name="date" type="date" value="${today()}" required></div><button class="primary full">Save expense</button></form>`)}
+function saveExpense(e){e.preventDefault();let f=new FormData(e.target);db.expenses.push({id:crypto.randomUUID(),title:f.get('title'),amount:Number(f.get('amount')),category:f.get('category'),date:f.get('date'),created:new Date().toISOString()});save();closeModal();render();toast('Expense saved')}
+function openProduct(){modal('Add inventory item',`<form class="form" onsubmit="saveProduct(event)"><div class="field"><label>Product name</label><input name="name" required placeholder="e.g. 2L cooking oil"></div><div class="field"><label>Category</label><input name="category" placeholder="e.g. Groceries"></div><div class="field"><label>Selling price (P)</label><input name="price" type="number" min="0" step=".01" required placeholder="0.00"></div><div class="field"><label>Quantity in stock</label><input name="qty" type="number" min="0" step="1" required value="0"></div><div class="field"><label>Low-stock alert level</label><input name="low" type="number" min="0" step="1" value="5"></div><button class="primary full">Save product</button></form>`)}
+function saveProduct(e){e.preventDefault();let f=new FormData(e.target);db.products.push({id:crypto.randomUUID(),name:f.get('name'),category:f.get('category'),price:Number(f.get('price')),qty:Number(f.get('qty')),low:Number(f.get('low'))});save();closeModal();render();toast('Product added')}
+function adjustStock(id){let p=db.products.find(x=>x.id===id);if(!p)return;modal('Adjust stock',`<div class="muted" style="margin-bottom:12px">${esc(p.name)} • Current quantity: ${p.qty}</div><form class="form" onsubmit="saveStock(event,'${id}')"><div class="field"><label>New quantity</label><input name="qty" type="number" min="0" step="1" value="${p.qty}" required></div><button class="primary full">Update stock</button><button type="button" class="secondary danger full" onclick="deleteProduct('${id}')">Delete product</button></form>`)}
+function saveStock(e,id){e.preventDefault();let p=db.products.find(x=>x.id===id);p.qty=Number(new FormData(e.target).get('qty'));save();closeModal();render();toast('Stock updated')}
+function deleteProduct(id){if(confirm('Delete this product?')){db.products=db.products.filter(p=>p.id!==id);save();closeModal();render();toast('Product deleted')}}
+function openCustomer(){modal('Add customer',`<form class="form" onsubmit="saveCustomer(event)"><div class="field"><label>Customer name</label><input name="name" required placeholder="Customer name"></div><div class="field"><label>Phone (optional)</label><input name="phone" placeholder="Phone number"></div><div class="field"><label>Outstanding balance (P)</label><input name="debt" type="number" min="0" step=".01" value="0"></div><button class="primary full">Save customer</button></form>`)}
+function saveCustomer(e){e.preventDefault();let f=new FormData(e.target);db.customers.push({id:crypto.randomUUID(),name:f.get('name'),phone:f.get('phone'),debt:Number(f.get('debt'))});save();closeModal();showCustomers();toast('Customer saved')}
+function showCustomers(){modal('Customers & credit',`<button class="primary full" onclick="closeModal();openCustomer()">＋ Add customer</button><div class="list" style="margin-top:10px">${db.customers.length?db.customers.map(c=>`<div class="item"><div><div class="item-title">${esc(c.name)}</div><div class="item-sub">${esc(c.phone||'No phone number')}</div></div><div style="text-align:right"><div class="amount">${money(c.debt)}</div><button class="secondary" style="padding:5px 8px;margin-top:5px" onclick="recordPayment('${c.id}')">Record payment</button></div></div>`).join(''):empty('No customers yet','Add customers and track outstanding balances.')}</div>`)}
+function recordPayment(id){let c=db.customers.find(x=>x.id===id);modal('Record customer payment',`<div class="muted" style="margin-bottom:10px">${esc(c.name)} • Balance ${money(c.debt)}</div><form class="form" onsubmit="savePayment(event,'${id}')"><div class="field"><label>Payment received (P)</label><input name="amount" type="number" min=".01" max="${c.debt}" step=".01" required></div><button class="primary full">Save payment</button></form>`)}
+function savePayment(e,id){e.preventDefault();let c=db.customers.find(x=>x.id===id),n=Number(new FormData(e.target).get('amount'));if(n>c.debt){toast('Payment is greater than balance');return}c.debt=Math.max(0,c.debt-n);db.sales.push({id:crypto.randomUUID(),title:'Customer payment: '+c.name,amount:n,qty:1,date:today(),created:new Date().toISOString()});save();showCustomers();toast('Payment recorded')}
+function showReports(){let rev=sum(db.sales),exp=sum(db.expenses),net=rev-exp,debts=db.customers.reduce((n,c)=>n+c.debt,0);modal('Business reports',`<div class="grid">${metric('SALES',money(rev))}${metric('EXPENSES',money(exp))}${metric('NET RESULT',money(net))}${metric('CUSTOMER DEBT',money(debts))}</div><div class="card"><h3>What these figures mean</h3><div class="muted">Net result is recorded sales minus recorded expenses. It is not a full accounting profit calculation: stock costs, tax, unpaid bills and other adjustments may not yet be included.</div></div><button class="secondary full" style="margin-top:12px" onclick="exportCSV()">Export transactions CSV</button>`)}
+function premiumInfo(){modal('Kgwebo Premium',`<div class="tag warn">COMING LATER</div><h3 style="margin-top:12px">More tools for growing businesses</h3><p class="muted">Planned premium features include advanced reports, secure cloud backup, multiple staff accounts and downloadable invoices. No subscription or payment is being collected in this prototype.</p><button class="primary full" onclick="closeModal()">Got it</button>`)}
+function openSettings(){modal('Business settings',`<form class="form" onsubmit="saveSettings(event)"><div class="field"><label>Business name</label><input name="business" value="${esc(db.business)}" required></div><div class="field"><label>Currency</label><select name="currency"><option value="P" selected>Botswana pula (P)</option><option value="R">South African rand (R)</option><option value="$">US dollar ($)</option></select></div><button class="primary full">Save settings</button></form>`)}
+function saveSettings(e){e.preventDefault();let f=new FormData(e.target);db.business=f.get('business');db.currency=f.get('currency');save();closeModal();render();toast('Settings saved')}
+function download(name,content,type){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([content],{type}));a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function exportJSON(){download('kgwebo-backup.json',JSON.stringify(db,null,2),'application/json');toast('Backup exported')}
+function exportCSV(){let rows=[['Type','Description','Date','Amount','Category']];db.sales.forEach(x=>rows.push(['Sale',x.title,x.date,x.amount,'']));db.expenses.forEach(x=>rows.push(['Expense',x.title,x.date,x.amount,x.category]));let csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n');download('kgwebo-transactions.csv',csv,'text/csv');toast('CSV exported')}
+function clearData(){if(confirm('This permanently clears all Kgwebo data saved on this device. Export a backup first. Continue?')){db=fresh();save();render();toast('Local data cleared')}}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+render();
+</script>
+</body></html>
